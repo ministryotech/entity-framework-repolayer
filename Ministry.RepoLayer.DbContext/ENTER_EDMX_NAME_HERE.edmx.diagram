@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7a102668435c417ab9e84615b3bfc5ef" Name="Diagram1">
+        <EntityTypeShape EntityType="Entities.Action" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.Category" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.Observation" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.Project" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.Response" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.Risk" Width="1.5" PointX="0.75" PointY="13.5" IsExpanded="true" />
+        <AssociationConnector Association="Entities.FK_Responses_Actions" ManuallyRouted="false" />
+        <AssociationConnector Association="Entities.FK_Responses_Categories" ManuallyRouted="false" />
+        <AssociationConnector Association="Entities.FK_Responses_Observations" ManuallyRouted="false" />
+        <AssociationConnector Association="Entities.FK_Responses_Projects" ManuallyRouted="false" />
+        <AssociationConnector Association="Entities.FK_Responses_Risks" ManuallyRouted="false" />
+        <InheritanceConnector EntityType="Entities.Action" />
+        <InheritanceConnector EntityType="Entities.Observation" />
+        <InheritanceConnector EntityType="Entities.Risk" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

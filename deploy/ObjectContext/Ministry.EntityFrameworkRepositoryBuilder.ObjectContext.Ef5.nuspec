@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Ministry.EntityFrameworkRepositoryBuilder.ObjectContext.Ef5</id>
+    <version>1.2</version>
+    <title>Entity Framework 5 Repository Builder for ObjectContext (Entities)</title>
+    <authors>The Ministry of Technology</authors>
+    <owners>The Ministry of Technology</owners>
+    <projectUrl>https://bitbucket.org/ministryotech/repolayer</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A customisable T4 template that generates Entity based Repositories from your EDMX file - simply edit the name of the EDMX file at the top of the TT file and run!</description>
+    <copyright>Copyright 2014</copyright>
+    <tags>Entities Entity Framework ObjectContext EF Repository Data</tags>
+    <dependencies>
+      <dependency id="EntityFramework" version="5.0.0" />
+    </dependencies>
+	<releaseNotes>
+		Enhanced Pluralisation detection
+	</releaseNotes>
+  </metadata>
+</package>

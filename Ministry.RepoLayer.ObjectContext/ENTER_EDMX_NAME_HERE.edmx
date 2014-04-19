@@ -1,0 +1,419 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AcumenSynergyModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="AcumenSynergyModelStoreContainer">
+          <EntitySet Name="Actions" EntityType="AcumenSynergyModel.Store.Actions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Categories" EntityType="AcumenSynergyModel.Store.Categories" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Observations" EntityType="AcumenSynergyModel.Store.Observations" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Projects" EntityType="AcumenSynergyModel.Store.Projects" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Responses" EntityType="AcumenSynergyModel.Store.Responses" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Risks" EntityType="AcumenSynergyModel.Store.Risks" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Responses_Actions" Association="AcumenSynergyModel.Store.FK_Responses_Actions">
+            <End Role="Actions" EntitySet="Actions" />
+            <End Role="Responses" EntitySet="Responses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Responses_Categories" Association="AcumenSynergyModel.Store.FK_Responses_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Responses" EntitySet="Responses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Responses_Observations" Association="AcumenSynergyModel.Store.FK_Responses_Observations">
+            <End Role="Observations" EntitySet="Observations" />
+            <End Role="Responses" EntitySet="Responses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Responses_Projects" Association="AcumenSynergyModel.Store.FK_Responses_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Responses" EntitySet="Responses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Responses_Risks" Association="AcumenSynergyModel.Store.FK_Responses_Risks">
+            <End Role="Risks" EntitySet="Risks" />
+            <End Role="Responses" EntitySet="Responses" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Actions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DueDate" Type="datetime" />
+          <Property Name="PlannedStart" Type="datetime" />
+          <Property Name="PlannedFinish" Type="datetime" />
+          <Property Name="ActualStart" Type="datetime" />
+          <Property Name="ActualFinish" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Observations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Projects">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="100" />
+          <Property Name="CustomerID" Type="uniqueidentifier" />
+          <Property Name="ProjectManagerID" Type="uniqueidentifier" />
+          <Property Name="LevelID" Type="int" />
+          <Property Name="StatusID" Type="int" />
+          <Property Name="HealthStatusID" Type="int" />
+        </EntityType>
+        <EntityType Name="Responses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProjectID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Sequence" Type="int" />
+          <Property Name="Title" Type="varchar" MaxLength="100" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatorID" Type="uniqueidentifier" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifierID" Type="uniqueidentifier" />
+          <Property Name="AssigneeID" Type="uniqueidentifier" />
+          <Property Name="SourceID" Type="uniqueidentifier" />
+          <Property Name="StatusID" Type="smallint" />
+          <Property Name="Priority" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Risks">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Liklihood" Type="int" />
+          <Property Name="Impact" Type="int" />
+        </EntityType>
+        <Association Name="FK_Responses_Actions">
+          <End Role="Actions" Type="AcumenSynergyModel.Store.Actions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Responses" Type="AcumenSynergyModel.Store.Responses" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Actions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Responses">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Responses_Categories">
+          <End Role="Categories" Type="AcumenSynergyModel.Store.Categories" Multiplicity="0..1" />
+          <End Role="Responses" Type="AcumenSynergyModel.Store.Responses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Responses">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Responses_Observations">
+          <End Role="Observations" Type="AcumenSynergyModel.Store.Observations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Responses" Type="AcumenSynergyModel.Store.Responses" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Observations">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Responses">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Responses_Projects">
+          <End Role="Projects" Type="AcumenSynergyModel.Store.Projects" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Responses" Type="AcumenSynergyModel.Store.Responses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Responses">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Responses_Risks">
+          <End Role="Risks" Type="AcumenSynergyModel.Store.Risks" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Responses" Type="AcumenSynergyModel.Store.Responses" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Risks">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Responses">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Entities" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="EdmxEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+          <EntitySet Name="Projects" EntityType="Entities.Project" />
+          <EntitySet Name="Responses" EntityType="Entities.Response" />
+          <AssociationSet Name="FK_Responses_Actions" Association="Entities.FK_Responses_Actions">
+            <End EntitySet="Responses" Role="Action" />
+            <End EntitySet="Responses" Role="Respons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Responses_Projects" Association="Entities.FK_Responses_Projects">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="Respons" EntitySet="Responses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Responses_Risks" Association="Entities.FK_Responses_Risks">
+            <End EntitySet="Responses" Role="Risk" />
+            <End EntitySet="Responses" Role="Respons" />
+          </AssociationSet>
+          <EntitySet Name="Categories" EntityType="Entities.Category" />
+          <AssociationSet Name="FK_Responses_Categories" Association="Entities.FK_Responses_Categories">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Response" EntitySet="Responses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Responses_Observations" Association="Entities.FK_Responses_Observations">
+            <End Role="Observation" EntitySet="Responses" />
+            <End Role="Response" EntitySet="Responses" />
+          </AssociationSet>
+        </EntityContainer>
+        <ComplexType Name="LocalMatch">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="RecipeId" Nullable="false" />
+          <Property Type="String" Name="ImageUrl" Nullable="true" MaxLength="2000" />
+          <Property Type="Int32" Name="Servings" Nullable="false" />
+          <Property Type="Int32" Name="TimeInSeconds" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="IngredientsList" Nullable="true" />
+          <Property Type="String" Name="Source" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Author" Nullable="true" MaxLength="2000" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="String" Name="Tags" Nullable="true" DefaultValue="" />
+          <Property Type="Int32" Name="Colour" Nullable="false" DefaultValue="0" />
+        </ComplexType>
+        <EntityType Name="Action" BaseType="Entities.Response">
+          <Property Type="DateTime" Name="DueDate" Precision="3" />
+          <Property Type="DateTime" Name="PlannedStart" Precision="3" />
+          <Property Type="DateTime" Name="PlannedFinish" Precision="3" />
+          <Property Type="DateTime" Name="ActualStart" Precision="3" />
+          <Property Type="DateTime" Name="ActualFinish" Precision="3" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Title" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Responses" Relationship="Entities.FK_Responses_Projects" FromRole="Project" ToRole="Respons" />
+        </EntityType>
+        <EntityType Name="Response">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="ProjectId" Nullable="false" />
+          <Property Type="Int32" Name="Sequence" />
+          <Property Type="String" Name="Title" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Type="DateTime" Name="CreatedDate" Precision="3" />
+          <Property Type="DateTime" Name="ModifiedDate" Precision="3" />
+          <Property Type="Int16" Name="Priority" />
+          <NavigationProperty Name="Project" Relationship="Entities.FK_Responses_Projects" FromRole="Respons" ToRole="Project" />
+          <NavigationProperty Name="Category" Relationship="Entities.FK_Responses_Categories" FromRole="Response" ToRole="Category" />
+          <NavigationProperty Name="Observation" Relationship="Entities.FK_Responses_Observations" FromRole="Response" ToRole="Observation" />
+        </EntityType>
+        <EntityType Name="Risk" BaseType="Entities.Response">
+          <Property Type="Int32" Name="Liklihood" />
+          <Property Type="Int32" Name="Impact" />
+        </EntityType>
+        <Association Name="FK_Responses_Actions">
+          <End Type="Entities.Action" Multiplicity="1" Role="Action">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.Response" Multiplicity="0..1" Role="Respons" />
+          <ReferentialConstraint>
+            <Principal Role="Action">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Respons">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Responses_Projects">
+          <End Type="Entities.Project" Role="Project" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.Response" Role="Respons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Respons">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Responses_Risks">
+          <End Type="Entities.Risk" Multiplicity="1" Role="Risk">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.Response" Multiplicity="0..1" Role="Respons" />
+          <ReferentialConstraint>
+            <Principal Role="Risk">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Respons">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Title" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Responses" Relationship="Entities.FK_Responses_Categories" FromRole="Category" ToRole="Response" />
+        </EntityType>
+        <Association Name="FK_Responses_Categories">
+          <End Type="Entities.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="Entities.Response" Role="Response" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Response">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Observation" BaseType="Entities.Response">
+        </EntityType>
+        <Association Name="FK_Responses_Observations">
+          <End Type="Entities.Observation" Role="Observation" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Entities.Response" Role="Response" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Observation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Response">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AcumenSynergyModelStoreContainer" CdmEntityContainer="EdmxEntities">
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="Entities.Project">
+              <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Responses">
+            <EntityTypeMapping TypeName="IsTypeOf(Entities.Response)">
+              <MappingFragment StoreEntitySet="Responses">
+                <ScalarProperty Name="Id" ColumnName="ID" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(Entities.Risk)">
+              <MappingFragment StoreEntitySet="Risks">
+                <ScalarProperty Name="Id" ColumnName="ID" />
+                <ScalarProperty Name="Liklihood" ColumnName="Liklihood" />
+                <ScalarProperty Name="Impact" ColumnName="Impact" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(Entities.Action)">
+              <MappingFragment StoreEntitySet="Actions">
+                <ScalarProperty Name="Id" ColumnName="ID" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="PlannedStart" ColumnName="PlannedStart" />
+                <ScalarProperty Name="PlannedFinish" ColumnName="PlannedFinish" />
+                <ScalarProperty Name="ActualStart" ColumnName="ActualStart" />
+                <ScalarProperty Name="ActualFinish" ColumnName="ActualFinish" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(Entities.Observation)">
+              <MappingFragment StoreEntitySet="Observations">
+                <ScalarProperty Name="Id" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="Entities.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="AcumenSynergy" ZoomLevel="77">
+        <EntityTypeShape EntityType="Entities.Action" Width="1.5" PointX="0.5" PointY="4.5" />
+        <EntityTypeShape EntityType="Entities.Project" Width="1.5" PointX="7.25" PointY="4.375" />
+        <EntityTypeShape EntityType="Entities.Response" Width="1.5" PointX="3.75" PointY="2.375" />
+        <EntityTypeShape EntityType="Entities.Risk" Width="1.5" PointX="0.5" PointY="7.25" />
+        <AssociationConnector Association="Entities.FK_Responses_Actions" />
+        <AssociationConnector Association="Entities.FK_Responses_Projects" />
+        <AssociationConnector Association="Entities.FK_Responses_Risks" />
+        <InheritanceConnector EntityType="Entities.Risk" />
+        <InheritanceConnector EntityType="Entities.Action" />
+        <InheritanceConnector EntityType="Entities.Action" />
+        <InheritanceConnector EntityType="Entities.Risk" />
+        <EntityTypeShape EntityType="Entities.Category" Width="1.5" PointX="9.5" PointY="1" />
+        <AssociationConnector Association="Entities.FK_Responses_Categories" />
+        <EntityTypeShape EntityType="Entities.Observation" Width="1.5" PointX="0.75" PointY="2.5" />
+        <AssociationConnector Association="Entities.FK_Responses_Observations" />
+        <InheritanceConnector EntityType="Entities.Observation" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
