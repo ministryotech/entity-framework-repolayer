@@ -1,2 +1,10 @@
 Ministry.RepoLayer.DbContext/packages/
 packages/
+.nuget/
+*/obj/
+Ministry.RepoLayer.ObjectContext/bin/
+*.user
+*.suo
+*.vspscc
+Ministry.RepoLayer.DbContext/bin/
+Ministry.RepoLayer.ObjectContext-EF6/bin/
